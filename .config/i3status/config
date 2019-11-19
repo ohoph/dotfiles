@@ -1,0 +1,61 @@
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+        interval = 5
+        colors = false
+}
+
+order += "wireless wlan0"
+order += "disk /"
+order += "memory"
+order += "volume master"
+order += "battery all"
+order += "tztime date"
+order += "tztime time"
+
+wireless wlan0 {
+        format_up = "%quality at %essid, %bitrate %ip "
+        format_down = "wifi down"
+}
+
+
+volume master {
+        format = " volume %volume "
+        format_muted = " (%volume) "
+        device = "default"
+}
+
+memory {
+                   format = " memory %used "
+                   threshold_degraded = "10%"
+                   format_degraded = " MEMORY %free "
+           }
+
+battery all {
+        format = " battery %percentage "
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        integer_battery_capacity = true
+        last_full_capacity = true
+        low_threshold = 25
+        threshold_type = "percentage"
+        hide_seconds = true
+}
+
+tztime date {
+        format = " %d-%m-%Y "
+}
+
+tztime time {
+        format = " %H:%M   "
+}
+
+load {
+        format = " %1min"
+}
+
+disk "/" {
+        format = "  %avail "
+}

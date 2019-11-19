@@ -1,3 +1,0 @@
-# screenshots
-
-different color themes

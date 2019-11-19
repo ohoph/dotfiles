@@ -1,0 +1,223 @@
+# for pywal:
+# set colors from Xresources
+# for when it fails:
+
+set_from_resource $fg i3wm.color7 #d5c4a1
+set_from_resource $bg i3wm.color2 #08121B
+
+# class                 border  backgr. text indicator child_border
+client.focused          $bg     $bg     $fg  $bg       $bg
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
+
+set $thick 2
+border_radius 4
+
+# GAP VARIABLES
+set $inner 28
+set $outer 14
+
+# SET GAPS
+gaps inner $inner
+gaps outer $outer
+
+set $mod Mod4
+
+# font pango:Hack 12
+font xft:Hack 7
+
+floating_modifier $mod
+
+for_window [class="FTermite"] floating enable
+
+# execute terminals
+
+bindsym $mod+Return exec termite
+
+# execute floating terminal 
+
+bindsym $mod+Shift+Return exec termite --class FTermite
+
+# kill window
+
+bindsym $mod+Shift+q kill
+
+# rofi stuff 
+
+bindsym $mod+r exec --no-startup-id rofi -show run -font "Hack 10"
+
+bindsym $mod+p exec --no-startup-id rofi -show window -font "Hack 10"
+
+# moving focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+bindsym $mod+d focus child
+
+# workspace names/icons
+set $ws1 "one"
+set $ws2 "two"
+set $ws3 "three"
+set $ws4 "four"
+set $ws5 "five"
+set $ws6 "six"
+set $ws7 "seven"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+mode "rearrange" {
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # greater sizes
+        bindsym Mod1+Left resize shrink width 30 px or 30 ppt
+        bindsym Mod1+Down resize grow height 30 px or 30 ppt
+        bindsym Mod1+Up resize shrink height 30 px or 30 ppt
+        bindsym Mod1+Right resize grow width 30 px or 30 ppt
+
+        # EVEN GREATER SIZES !!11
+        bindsym Mod1+Shift+Left resize shrink width 50 px or 50 ppt
+        bindsym Mod1+Shift+Down resize grow height 50 px or 50 ppt
+        bindsym Mod1+Shift+Up resize shrink height 50 px or 50 ppt
+        bindsym Mod1+Shift+Right resize grow width 50 px or 50 ppt
+
+        # move
+        bindsym Shift+Left move left 30 px
+        bindsym Shift+Down move down 30 px
+        bindsym Shift+Up move up 30 px
+        bindsym Shift+Right move right 30 px
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+ctrl+r mode "rearrange"
+
+
+
+bar {
+        position top
+#       mode hide
+        modifier none
+        status_command i3status
+        strip_workspace_numbers no
+        colors {
+            background #202225
+            statusline #c5c8c6
+
+            #class               #border #backgr #text
+            focused_workspace    $bg     $bg     $fg
+            active_workspace     $bg     $bg     $fg
+            inactive_workspace   $bg     $bg     $fg
+            urgent_workspace     $bg     $bg     $fg
+        }
+}
+
+
+# minor aeshthetics
+for_window [class="^.*"] border pixel 0
+new_window 1pixel
+bindsym $mod+t border normal
+bindsym $mod+u border pixel 0
+# bindsym $mod+m bar mode toggle
+
+# window rules
+title_align center
+for_window [class=".*"] title_format "<b>%title</b>"
+
+# floating rules
+set $float floating enable, border normal 0
+for_window [class="keepassxc"] $float
+for_window [class="com-lyndir-masterpassword-gui-MasterPassword"] $float
+for_window [class="bookmarks"] $float
+for_window [class="Arandr"] $float
+for_window [class="File Transfer*"] $float
+for_window [class="Org.gnome.Nautilus"] $float
+for_window [class="Nm-connection-editor"] $float
+for_window [class="Manjaro Settings Manager"] $float
+for_window [window_role="GtkFileChooserDialog"] resize set 900 600, move position center
+
+smart_gaps on
+
+# volume/mic
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# brightness controls
+bindsym XF86MonBrightnessDown exec xbacklight -10
+bindsym XF86MonBrightnessUp exec xbacklight +10
+
+bindsym $mod+mod1+space exec --no-startup-id playerctl play-pause
+bindsym $mod+mod1+n exec --no-startup-id playerctl next
+bindsym $mod+mod1+p exec --no-startup-id playerctl previous
+
+bindsym Print exec flameshot gui
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# thinkpad specific
+exec --no-startup-id xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation' 1
+exec --no-startup-id xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation Button' 2
+exec --no-startup-id xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation Timeout' 200
+exec --no-startup-id xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation Axes' 6 7 4 5
+
+# locking screen
+bindsym $mod+l exec i3lock -t -i /home/backgrounds/background.png
+
+# startup
+exec --no-startup-id compton --config $HOME/.config/compton.conf
