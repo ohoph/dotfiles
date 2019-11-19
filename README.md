@@ -3,12 +3,12 @@
 
 one minimal setup, pywal to change themes and colors (running in a crontab)
 
-![alt text](https://raw.githubusercontent.com/ohoph/dotfiles/screenshots/one.png)
+![](https://github.com/ohoph/dotfiles/blob/master/screenshots/one.png)
 
-![alt text](https://raw.githubusercontent.com/ohoph/dotfiles/screenshots/two.png)
+![](https://github.com/ohoph/dotfiles/blob/master/screenshots/two.png)
 
-![alt text](https://raw.githubusercontent.com/ohoph/dotfiles/screenshots/three.png)
+![](https://github.com/ohoph/dotfiles/blob/master/screenshots/three.png)
 
-![alt text](https://raw.githubusercontent.com/ohoph/dotfiles/screenshots/four.png)
+![](https://github.com/ohoph/dotfiles/blob/master/screenshots/four.png)
 
-![alt text](https://raw.githubusercontent.com/ohoph/dotfiles/screenshots/five.png)
+![](https://github.com/ohoph/dotfiles/blob/master/screenshots/five.png)
